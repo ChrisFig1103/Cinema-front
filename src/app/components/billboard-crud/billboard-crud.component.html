@@ -1,0 +1,102 @@
+<app-menu-crud></app-menu-crud>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <form #billboardForm="ngForm" (ngSubmit)="addBillboard(billboardForm)" >
+                    <input type="hidden" name="_id" [(ngModel)]="BillboardService.selectedBillboard._id">
+                    <div class="form-group">
+                        <input type="text" name="id" class="form-control" placeholder="Enter id" [(ngModel)]="BillboardService.selectedBillboard.id">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="logo_url" class="form-control" placeholder="Enter first name" [(ngModel)]="BillboardService.selectedBillboard.logo_url">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="year" class="form-control" placeholder="Enter last name" [(ngModel)]="BillboardService.selectedBillboard.year">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="classification" class="form-control" placeholder="Enter your position" [(ngModel)]="BillboardService.selectedBillboard.classification">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="duration" class="form-control" placeholder="Enter salary" [(ngModel)]="BillboardService.selectedBillboard.duration" >
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="genre" class="form-control" placeholder="Enter email" [(ngModel)]="BillboardService.selectedBillboard.genre" >
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="description" class="form-control" placeholder="Enter password" [(ngModel)]="BillboardService.selectedBillboard.description" >
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="trailer_url" class="form-control" placeholder="Enter password" [(ngModel)]="BillboardService.selectedBillboard.trailer_url" >
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="director" class="form-control" placeholder="Enter password" [(ngModel)]="BillboardService.selectedBillboard.director" >
+                    </div>
+                    <button class="btn btn-primary mr-2" (click)="resetForm(billboardForm)">
+                        Clean
+                    </button>
+                    <button class="btn btn-secondary">
+                        Save
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        LOGO_URL
+                    </th>
+                    <th>
+                        YEAR
+                    </th>
+                    <th>
+                        CLASSIFICATION
+                    </th>
+                    <th>
+                        DURATION
+                    </th>
+                    <th>
+                        GENRE
+                    </th>
+                    <th>
+                        DESCRIPTION
+                    </th>
+                    <th>
+                        TRAILER_URL
+                    </th>
+                    <th>
+                        DIRECTOR
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let billboard of BillboardService.billboards | paginate:page_size:page_number "> 
+                    <td>{{billboard.id}}</td>
+                    <td>{{billboard.logo_url}}</td>
+                    <td>{{billboard.year}}</td>
+                    <td>{{billboard.classification}}</td>
+                    <td>{{billboard.duration}}</td>
+                    <td>{{billboard.genre}}</td>
+                    <td>{{billboard.description}}</td>
+                    <td>{{billboard.trailer_url}}</td>
+                    <td>{{billboard.director}}</td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm" (click)="editBillboard(billboard)" ><i class="material-icons">edit</i></button>
+                        <button class="btn btn-danger btn-sm" (click)="deleteBillboard(billboard._id)" ><i class="material-icons">delete</i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator [length]="BillboardService.billboards.length"
+        [pageSize]="page_size"
+        [pageSizeOptions]="pageSizeOptions"
+        (page) ='handlePage($event)'>
+</mat-paginator>
+    </div>
+</div>
